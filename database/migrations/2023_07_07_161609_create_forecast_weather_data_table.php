@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('forecast_weather_data', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->unsignedBigInteger('location_id');
+
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('forecast_weather_data');
     }
 };
