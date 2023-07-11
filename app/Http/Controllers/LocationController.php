@@ -36,6 +36,7 @@ class LocationController extends Controller
     public function show(Location $location)
     {
         //
+        return response()->json($location);
     }
 
 
@@ -45,6 +46,8 @@ class LocationController extends Controller
     public function update(UpdateLocationRequest $request, Location $location)
     {
         //
+        $location->update($request->all());
+        return response()->json($location);
     }
 
     /**
@@ -53,5 +56,7 @@ class LocationController extends Controller
     public function destroy(Location $location)
     {
         //
+        $location->delete();
+        return response()->json(null, 204);
     }
 }
