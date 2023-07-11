@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parameters', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('variable_id');
-
+            $table->string("name");
             $table->foreign('variable_id')->references('id')->on('meteorological_variables');
             $table->timestamps();
         });

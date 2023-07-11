@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('forecast_weather_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('location_id');
-
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->dateTime("date");
             $table->timestamps();
         });
     }

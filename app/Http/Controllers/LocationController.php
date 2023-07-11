@@ -14,15 +14,10 @@ class LocationController extends Controller
     public function index()
     {
         //
+        $locations = Location::all();
+        return response()->json($locations);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -30,6 +25,9 @@ class LocationController extends Controller
     public function store(StoreLocationRequest $request)
     {
         //
+        $input = $request->all();
+        $location = Location::create($input);
+        return response()->json($location);
     }
 
     /**
@@ -40,13 +38,6 @@ class LocationController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Location $location)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

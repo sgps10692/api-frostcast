@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    protected $table = "locations";
+
     use HasFactory;
+
+
+    protected $fillable = [
+        "name",
+        "city",
+        "location",
+        "latitude",
+        "length",
+        "altitude"
+    ];
 }

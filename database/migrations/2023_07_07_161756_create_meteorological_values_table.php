@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('parameter_variable_id');
             $table->unsignedBigInteger('data_id');
-
+            $table->decimal("value");
             $table->foreign('parameter_variable_id')->references('id')->on('parameters');
             $table->foreign('data_id')->references('id')->on('forecast_weather_data');
             $table->timestamps();
