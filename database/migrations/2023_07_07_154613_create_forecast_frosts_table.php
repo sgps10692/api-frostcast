@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('forecast_frosts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('location_id');
-            $table->float('probability');
-            $table->dateTime('created', $precision = 0);
+            $table->float('probability')->nullable();
+            $table->date('date')->nullable()->default(now());
             $table->foreign('location_id')->references('id')->on('locations');
             $table->timestamps();
         });

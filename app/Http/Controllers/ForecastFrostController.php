@@ -26,11 +26,26 @@ class ForecastFrostController extends Controller
      */
     public function store(StoreForecastFrostRequest $request)
     {
-        //
-        $forecast_frost = new ForecastFrost();
-        $forecast_frost->location_id = $request->input('location_id');
-        $forecast_frost->probability = $request->input('probability');
-        $forecast_frost->save();
+        $date= now();
+        $timestamp = $date->format('Y-m-d');
+        $forecast_frost = ForecastFrost::where('date',   $timestamp)
+            ->where('location_id', $request->input('location_id'))
+            ->first();
+
+        // Si no existe, creamos un nuevo registro
+        if (!$forecast_frost) {
+            $forecast_frost = new ForecastFrost();
+            $forecast_frost->location_id = $request->input('location_id');
+            $forecast_frost->probability = $request->input('probability');
+
+            $forecast_frost->save();
+        }
+        // Si existe, actualizamos el valor de la probabilidad
+        else {
+            $forecast_frost->probability = $request->input('probability');
+            $forecast_frost->save();
+        }
+        // Devolvemos una respuesta JSON
         return response()->json([
             'success' => true,
             'data' => $forecast_frost
@@ -59,6 +74,7 @@ class ForecastFrostController extends Controller
         //
         $forecast_frost->location_id = $request->input('location_id');
         $forecast_frost->probability = $request->input('probability');
+        $forecast_frost->created = $request->input('created');
         $forecast_frost->save();
         return response()->json([
             'success' => true,
