@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ForecastFrostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,16 @@ use App\Http\Controllers\LocationController;
     return $request->user();
 });
 */
-Route::apiResource('locations', LocationController::class);
+//Route::apiResource('locations', LocationController::class);
+
+Route::get('/locations', [LocationController::class, 'index']);
+Route::get('/locations/{id}', [LocationController::class, 'show']);
+Route::post('/locations', [LocationController::class, 'store']);
+Route::put('/locations/{id}', [LocationController::class, 'update']);
+Route::delete('/locations/{id}', [LocationController::class, 'destroy']);
+// Rutas para ForecastFrostController
+Route::get('/forecast_frosts', [ForecastFrostController::class, 'index']);
+Route::get('/forecast_frosts/{id}', [ForecastFrostController::class, 'show']);
+Route::post('/forecast_frosts', [ForecastFrostController::class, 'store']);
+Route::put('/forecast_frosts/{id}', [ForecastFrostController::class, 'update']);
+Route::delete('/forecast_frosts/{id}', [ForecastFrostController::class, 'destroy']);

@@ -13,21 +13,42 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
         $locations = Location::all();
-        return response()->json($locations);
+        try {
+            return response()->json([
+                'success' => true,
+                'data' => $locations
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreLocationRequest $request)
     {
-        //
-        $input = $request->all();
-        $location = Location::create($input);
-        return response()->json($location);
+        $location = new Location();
+        $location->name = $request->input('name');
+        $location->city = $request->input('city');
+        $location->location = $request->input('location');
+        $location->latitude = $request->input('latitude');
+        $location->length = $request->input('length');
+        $location->altitude = $request->input('altitude');
+        try {
+            $location->save();
+            return response()->json([
+                'success' => true,
+                'data' => $location
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -35,8 +56,16 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        //
-        return response()->json($location);
+        try {
+            return response()->json([
+                'success' => true,
+                'data' => $location
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
 
@@ -45,9 +74,17 @@ class LocationController extends Controller
      */
     public function update(UpdateLocationRequest $request, Location $location)
     {
-        //
-        $location->update($request->all());
-        return response()->json($location);
+        try {
+            $location->update($request->all());
+            return response()->json([
+                'success' => true,
+                'data' => $location
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -55,8 +92,15 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
-        $location->delete();
-        return response()->json(null, 204);
+        try {
+            $location->delete();
+            return response()->json([
+                'success' => true
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }

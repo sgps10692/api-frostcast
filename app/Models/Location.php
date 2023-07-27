@@ -20,4 +20,9 @@ class Location extends Model
         "length",
         "altitude"
     ];
+
+    public function forecast_frosts()
+    {
+        return $this->hasMany(ForecastFrost::class);
+    }
 }

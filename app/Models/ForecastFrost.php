@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class ForecastFrost extends Model
 {
+
+    protected $table = "forecast_frosts";
+
     use HasFactory;
+
+    protected $fillable = [
+        'location_id',
+        'probability'
+    ];
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }

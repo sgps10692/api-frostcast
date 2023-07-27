@@ -13,16 +13,13 @@ class ForecastFrostController extends Controller
      */
     public function index()
     {
-        //
+        $forecast_frosts = ForecastFrost::all();
+        return response()->json([
+            'success' => true,
+            'data' => $forecast_frosts
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -30,6 +27,14 @@ class ForecastFrostController extends Controller
     public function store(StoreForecastFrostRequest $request)
     {
         //
+        $forecast_frost = new ForecastFrost();
+        $forecast_frost->location_id = $request->input('location_id');
+        $forecast_frost->probability = $request->input('probability');
+        $forecast_frost->save();
+        return response()->json([
+            'success' => true,
+            'data' => $forecast_frost
+        ]);
     }
 
     /**
@@ -38,22 +43,27 @@ class ForecastFrostController extends Controller
     public function show(ForecastFrost $forecastFrost)
     {
         //
+        return response()->json([
+            'success' => true,
+            'data' => $forecastFrost
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ForecastFrost $forecastFrost)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateForecastFrostRequest $request, ForecastFrost $forecastFrost)
+    public function update(UpdateForecastFrostRequest $request, ForecastFrost $forecast_frost)
     {
         //
+        $forecast_frost->location_id = $request->input('location_id');
+        $forecast_frost->probability = $request->input('probability');
+        $forecast_frost->save();
+        return response()->json([
+            'success' => true,
+            'data' => $forecast_frost
+        ]);
     }
 
     /**
@@ -61,6 +71,15 @@ class ForecastFrostController extends Controller
      */
     public function destroy(ForecastFrost $forecastFrost)
     {
-        //
+        try {
+            $forecastFrost->delete();
+            return response()->json([
+                'success' => true
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }
