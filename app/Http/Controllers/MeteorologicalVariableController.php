@@ -13,16 +13,19 @@ class MeteorologicalVariableController extends Controller
      */
     public function index()
     {
-        //
+        $meteorological_variable = MeteorologicalVariable::all();
+        try {
+            return response()->json([
+                'success' => true,
+                'data' => $meteorological_variable
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,13 +43,7 @@ class MeteorologicalVariableController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MeteorologicalVariable $meteorologicalVariable)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
