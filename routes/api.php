@@ -6,7 +6,8 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ForecastFrostController;
 use App\Http\Controllers\MeteorologicalVariableController;
 use App\Http\Controllers\ParameterController;
-
+use App\Http\Controllers\PrediccionesController;
+use App\Http\Controllers\MeteorologicalValueController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -59,3 +60,13 @@ Route::get('/parameters/{id}', [ParameterController::class, 'show']);
 Route::post('/parameters', [ParameterController::class, 'store']);
 Route::put('/parameters/{id}', [ParameterController::class, 'update']);
 Route::delete('/parameters/{id}', [ParameterController::class, 'destroy']);
+
+
+
+// Rutas
+
+Route::get('/ubicaciones/{ubicacion_id}/predicciones', [PrediccionesController::class,'getPrediccionesPorUbicacion']);
+
+
+//
+Route::post('/meteorological-values', [MeteorologicalValueController::class, 'store']);

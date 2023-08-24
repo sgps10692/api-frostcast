@@ -8,21 +8,7 @@ use App\Http\Requests\UpdateMeteorologicalValueRequest;
 
 class MeteorologicalValueController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -30,37 +16,29 @@ class MeteorologicalValueController extends Controller
     public function store(StoreMeteorologicalValueRequest $request)
     {
         //
+
+        $date= now();
+        $timestamp = $date->format('Y-m-d');
+        $meteorologicalValue = MeteorologicalValue::where('date',   $timestamp)
+            ->where('location_id', $request->input('location_id'))
+            ->where('parameter_variable_id', $request->input('parameter_variable_id'))
+            ->first();
+
+        if (!$meteorologicalValue) {
+            $meteorologicalValue = new MeteorologicalValue();
+
+            $meteorologicalValue->parameter_variable_id = $request->input('parameter_variable_id');
+            $meteorologicalValue->location_id = $request->input('location_id');
+            $meteorologicalValue->value = $request->input('value');
+
+            $meteorologicalValue->save();
+        } else {
+            $meteorologicalValue->value = $request->input('value');
+            $meteorologicalValue->save();
+        }
+
+        return response()->json(['message' => 'Predicción guardada con éxito'], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(MeteorologicalValue $meteorologicalValue)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MeteorologicalValue $meteorologicalValue)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMeteorologicalValueRequest $request, MeteorologicalValue $meteorologicalValue)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(MeteorologicalValue $meteorologicalValue)
-    {
-        //
-    }
 }

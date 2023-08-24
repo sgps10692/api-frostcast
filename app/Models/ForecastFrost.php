@@ -16,8 +16,8 @@ class ForecastFrost extends Model
         'location_id',
         'probability'
     ];
-    public function locations()
+    public function location()
     {
-        return $this->hasMany(Location::class);
+        return $this->belongsTo(Location::class, 'location_id');
     }
 }

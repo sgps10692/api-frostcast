@@ -25,4 +25,11 @@ class Location extends Model
     {
         return $this->hasMany(ForecastFrost::class);
     }
+
+    public function valores()
+    {
+        return $this->hasMany(Valor::class);
+    }
+
+
 }

@@ -11,7 +11,7 @@ class StoreMeteorologicalValueRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,9 @@ class StoreMeteorologicalValueRequest extends FormRequest
     {
         return [
             //
+            'parameter_variable_id' => 'required|exists:parameters,id',
+            'location_id' => 'required|exists:locations,id',
+            'value' => 'required|numeric',
         ];
     }
 }

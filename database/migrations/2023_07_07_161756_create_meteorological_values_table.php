@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('meteorological_values', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parameter_variable_id');
-            $table->unsignedBigInteger('data_id');
+            $table->unsignedBigInteger('location_id');
+            $table->date('date')->nullable()->default(now());
             $table->decimal("value");
             $table->foreign('parameter_variable_id')->references('id')->on('parameters');
-            $table->foreign('data_id')->references('id')->on('forecast_weather_data');
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->timestamps();
         });
     }
