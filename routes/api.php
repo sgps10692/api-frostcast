@@ -67,6 +67,8 @@ Route::delete('/parameters/{id}', [ParameterController::class, 'destroy']);
 
 Route::get('/ubicaciones/{ubicacion_id}/predicciones', [PrediccionesController::class,'getPrediccionesPorUbicacion']);
 
+Route::get('locations/{location_id}/recent-predictions', [PrediccionesController::class,'getRecentPredictions']);
+
 
 //
 Route::post('/meteorological-values', [MeteorologicalValueController::class, 'store']);
