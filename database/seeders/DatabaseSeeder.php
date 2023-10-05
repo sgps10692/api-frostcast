@@ -18,12 +18,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        /*$this->call([                          //linea de codigo para ejecutar las seeds
-            ForecastFrostSeeder::class,
+        $this->call([                          //linea de codigo para ejecutar las seeds
+
             LocationSeeder::class,
-            MeteorologicalValueSeeder::class,
             MeteorologicalVariableSeeder::class,
             ParameterSeeder::class,
-        ]);*/
+        ]);
     }
 }

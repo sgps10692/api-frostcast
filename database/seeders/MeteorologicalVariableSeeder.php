@@ -18,6 +18,7 @@ class MeteorologicalVariableSeeder extends Seeder
             ['name' => 'Temperatura'],
             ['name' => 'Humedad'],
             ['name' => 'Velocidad del Viento'],
+            ['name' => 'Precipitacion'],
             // Agrega más variables aquí
         ];
 

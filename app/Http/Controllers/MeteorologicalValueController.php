@@ -15,30 +15,44 @@ class MeteorologicalValueController extends Controller
      */
     public function store(StoreMeteorologicalValueRequest $request)
     {
-        //
-
-        $date= now();
+        // Obtiene los datos de la solicitud
+        $parameter_variable_id = $request->input('parameter_variable_id');
+        $location_id = $request->input('location_id');
+        $value = $request->input('value');
+    
+        // Obtiene la fecha actual
+        $date = now();
         $timestamp = $date->format('Y-m-d');
-        $meteorologicalValue = MeteorologicalValue::where('date',   $timestamp)
-            ->where('location_id', $request->input('location_id'))
-            ->where('parameter_variable_id', $request->input('parameter_variable_id'))
+
+
+        // Si no existe, crea un nuevo registro
+        $meteorologicalValue = new MeteorologicalValue();
+        $meteorologicalValue->parameter_variable_id = $parameter_variable_id;
+        $meteorologicalValue->location_id = $location_id;
+        $meteorologicalValue->value = $value;
+    /*
+  
+        $meteorologicalValue = MeteorologicalValue::where('date', $timestamp)
+            ->where('location_id', $location_id)
+            ->where('parameter_variable_id', $parameter_variable_id)
             ->first();
-
+    
         if (!$meteorologicalValue) {
+          
             $meteorologicalValue = new MeteorologicalValue();
-
-            $meteorologicalValue->parameter_variable_id = $request->input('parameter_variable_id');
-            $meteorologicalValue->location_id = $request->input('location_id');
-            $meteorologicalValue->value = $request->input('value');
-
-            $meteorologicalValue->save();
+            $meteorologicalValue->parameter_variable_id = $parameter_variable_id;
+            $meteorologicalValue->location_id = $location_id;
+            $meteorologicalValue->value = $value;
         } else {
-            $meteorologicalValue->value = $request->input('value');
-            $meteorologicalValue->save();
+        
+            $meteorologicalValue->value = $value;
         }
-
-        return response()->json(['message' => 'Predicción guardada con éxito'], 201);
+    */
+        // Guarda el registro
+        $meteorologicalValue->save();
+    
+        return response()->json(['message' => 'Predicción guardada con éxito'], 200);
     }
-
+    
 
 }
