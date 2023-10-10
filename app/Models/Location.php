@@ -28,7 +28,7 @@ class Location extends Model
 
     public function valores()
     {
-        return $this->hasMany(Valor::class);
+        return $this->hasMany(MeteorologicalValue::class);
     }
 
 

@@ -13,32 +13,35 @@ class PrediccionesController extends Controller
     public function getPrediccionesPorUbicacion($ubicacion_id){
 
         $ubicacion = Location::find($ubicacion_id);
-
+    
         if (!$ubicacion) {
             return response()->json(['error' => 'Ubicación no encontrada'], 404);
         }
-
+    
+        // Obtener la predicción más reciente
         $prediccion_reciente = $ubicacion->forecast_frosts()
-            ->orderBy('date', 'desc')
+            ->latest('date')
             ->first();
-
-
+    
         // Obtener los valores meteorológicos para la ubicación, incluyendo relaciones
-        $valores_meteorologicos = MeteorologicalValue::with('parameter.variable')
-            ->where('location_id', $ubicacion_id)
-            ->orderBy('date', 'desc')
-            ->get();
-        //logica para hacer un fetch a python
-
-
-
+        $latestMeteorologicalValues = MeteorologicalValue::whereIn('id', function ($query) use ($ubicacion_id) {
+            $query->select(DB::raw('MAX(id)'))
+                ->from('meteorological_values')
+                ->where('location_id', $ubicacion_id)
+                ->groupBy('parameter_variable_id');
+        })
+        ->with('parameter.variable')
+        ->get();
+    
+    
         return response()->json([
             'success' => true,
             'location' => $ubicacion,
             'prediccion_reciente' =>  $prediccion_reciente,
-            'valores_meteorologicos' => $valores_meteorologicos
+            'valores_meteorologicos' => $latestMeteorologicalValues
         ]);
     }
+    
 
     public function getRecentPredictions($location_id)
     {
