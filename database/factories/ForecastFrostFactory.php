@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Location;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ForecastFrost>
@@ -17,7 +18,9 @@ class ForecastFrostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'location_id' => Location::inRandomOrder()->first()->id,
+            'probability' => $this->faker->randomFloat(2, 0, 100),
+            // Otras columnas y valores de predicción si las tienes
         ];
     }
 }

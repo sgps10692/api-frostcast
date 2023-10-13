@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\MeteorologicalValue;
 
 class MeteorologicalValueSeeder extends Seeder
 {
@@ -13,5 +14,6 @@ class MeteorologicalValueSeeder extends Seeder
     public function run(): void
     {
         //
+        MeteorologicalValue::factory(100)->create();
     }
 }

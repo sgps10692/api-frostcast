@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             MeteorologicalVariableSeeder::class,
             ParameterSeeder::class,
+            MeteorologicalValueSeeder::class,
+            ForeCastFrostSeeder::class
         ]);
     }
 }

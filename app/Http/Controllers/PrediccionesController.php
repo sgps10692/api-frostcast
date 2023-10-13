@@ -30,6 +30,7 @@ class PrediccionesController extends Controller
                 ->where('location_id', $ubicacion_id)
                 ->groupBy('parameter_variable_id');
         })
+        ->orderBy('date', 'desc') // Ordenar por fecha en orden descendente
         ->with('parameter.variable')
         ->get();
     
