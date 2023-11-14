@@ -9,8 +9,42 @@ use Illuminate\Support\Facades\DB;
 
 class PrediccionesController extends Controller
 {
-    //
+
     public function getPrediccionesPorUbicacion($ubicacion_id){
+
+        $ubicacion = Location::find($ubicacion_id);
+    
+        if (!$ubicacion) {
+            return response()->json(['error' => 'Ubicación no encontrada'], 404);
+        }
+    
+        // Obtener la predicción más reciente
+        $prediccion_reciente = $ubicacion->forecast_frosts()
+            ->latest('date')
+            ->first();
+    
+        // Obtener los valores meteorológicos para la ubicación, incluyendo relaciones
+        $latestMeteorologicalValues = MeteorologicalValue::whereIn('id', function ($query) use ($ubicacion_id) {
+            $query->select(DB::raw('MAX(id)'))
+                ->from('meteorological_values')
+                ->where('location_id', $ubicacion_id)
+                ->groupBy('parameter_variable_id');
+        })
+        ->orderBy('date', 'desc') // Ordenar por fecha en orden descendente
+        ->with('parameter.variable')
+        ->get();
+    
+    
+        return response()->json([
+            'success' => true,
+            'location' => $ubicacion,
+            'prediccion_reciente' =>  $prediccion_reciente,
+            'valores_meteorologicos' => $latestMeteorologicalValues
+        ]);
+    }
+    
+    //
+    public function getPrediccionesVariables($ubicacion_id){
 
         $ubicacion = Location::find($ubicacion_id);
 

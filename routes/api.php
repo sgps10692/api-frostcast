@@ -66,7 +66,7 @@ Route::delete('/parameters/{id}', [ParameterController::class, 'destroy']);
 // Rutas
 
 Route::get('/ubicaciones/{ubicacion_id}/predicciones', [PrediccionesController::class,'getPrediccionesPorUbicacion']);
-
+Route::get('/ubicaciones/{ubicacion_id}/predicciones/variables', [PrediccionesController::class,'getPrediccionesVariables']);
 Route::get('locations/{location_id}/recent-predictions', [PrediccionesController::class,'getRecentPredictions']);
 
 
