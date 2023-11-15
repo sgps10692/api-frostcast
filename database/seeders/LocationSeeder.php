@@ -19,8 +19,8 @@ class LocationSeeder extends Seeder
                 'name' => 'C.UNIV.AGROP-UDCA',
                 'city' => 'Bogotá DC',
                 'location' => 'Bogotá DC',
-                'latitude' => '123.456',
-                'length' => '789.012',
+                'latitude' => '4.5580288',
+                'length' => '-74.1376',
                 'altitude' => '100',
             ],
             [
